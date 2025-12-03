@@ -1,0 +1,6 @@
+# Food Images Directory
+# Place your food images here with format: nama_makanan.jpg
+# Example: nasi_goreng.jpg, mie_goreng.jpg, sate_ayam.jpg
+# 
+# These images will be used to build the FAISS vector database
+# for food recognition using CLIP embeddings.

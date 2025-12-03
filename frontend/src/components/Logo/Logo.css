@@ -1,0 +1,154 @@
+/* Logo Component Styles */
+
+.dnai-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon svg {
+  display: block;
+}
+
+/* Size variations */
+.logo-small .logo-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.logo-small .logo-text {
+  font-size: 1.1rem;
+}
+
+.logo-medium .logo-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.logo-medium .logo-text {
+  font-size: 1.5rem;
+}
+
+.logo-large .logo-icon svg {
+  width: 56px;
+  height: 56px;
+}
+
+.logo-large .logo-text {
+  font-size: 2rem;
+}
+
+.logo-xlarge .logo-icon svg {
+  width: 80px;
+  height: 80px;
+}
+
+.logo-xlarge .logo-text {
+  font-size: 2.5rem;
+}
+
+/* Logo text styling */
+.logo-text {
+  font-weight: 800;
+  background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+/* Animations for DNA logo */
+.logo-ring {
+  animation: rotateRing 20s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes rotateRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.dna-strand {
+  animation: pulseStrand 3s ease-in-out infinite;
+}
+
+@keyframes pulseStrand {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.dna-bridge {
+  animation: bridgePulse 2s ease-in-out infinite;
+}
+
+.dna-bridge:nth-child(1) { animation-delay: 0s; }
+.dna-bridge:nth-child(2) { animation-delay: 0.2s; }
+.dna-bridge:nth-child(3) { animation-delay: 0.4s; }
+.dna-bridge:nth-child(4) { animation-delay: 0.6s; }
+.dna-bridge:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes bridgePulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.ai-node {
+  animation: nodePulse 2s ease-in-out infinite;
+}
+
+.ai-node-small {
+  animation: nodePulse 2s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes nodePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+/* Hover effects */
+.dnai-logo:hover .logo-ring {
+  animation-duration: 5s;
+}
+
+.dnai-logo:hover .ai-node,
+.dnai-logo:hover .ai-node-small {
+  animation-duration: 0.5s;
+}
+
+/* Simple logo animation */
+.logo-icon.simple .hex-bg {
+  transition: transform 0.3s ease;
+}
+
+.dnai-logo:hover .logo-icon.simple .hex-bg {
+  transform: scale(1.05);
+}
+
+/* Modern logo animation */
+.logo-icon.modern svg rect {
+  transition: all 0.3s ease;
+}
+
+.dnai-logo:hover .logo-icon.modern svg rect {
+  rx: 25;
+}
+
+.logo-icon.modern svg circle {
+  animation: circuitPulse 1.5s ease-in-out infinite;
+}
+
+.logo-icon.modern svg circle:nth-child(1) { animation-delay: 0s; }
+.logo-icon.modern svg circle:nth-child(2) { animation-delay: 0.3s; }
+.logo-icon.modern svg circle:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes circuitPulse {
+  0%, 100% { opacity: 0.8; r: 4; }
+  50% { opacity: 1; r: 5; }
+}

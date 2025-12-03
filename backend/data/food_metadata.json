@@ -1,0 +1,76 @@
+{
+  "foods": [
+    {
+      "id": "nasi_goreng",
+      "nama_makanan": "Nasi Goreng",
+      "image_file": "nasi_goreng.jpg",
+      "kalori": 250,
+      "harga": 15000,
+      "tempat": "Restoran ABC",
+      "description": "Indonesian fried rice with vegetables and protein"
+    },
+    {
+      "id": "mie_goreng",
+      "nama_makanan": "Mie Goreng",
+      "image_file": "mie_goreng.jpg",
+      "kalori": 300,
+      "harga": 12000,
+      "tempat": "Warung XYZ",
+      "description": "Fried noodles with vegetables"
+    },
+    {
+      "id": "sate_ayam",
+      "nama_makanan": "Sate Ayam",
+      "image_file": "sate_ayam.jpg",
+      "kalori": 200,
+      "harga": 20000,
+      "tempat": "Warung Sate Pak Ali",
+      "description": "Grilled chicken skewers with peanut sauce"
+    },
+    {
+      "id": "gado_gado",
+      "nama_makanan": "Gado-Gado",
+      "image_file": "gado_gado.jpg",
+      "kalori": 180,
+      "harga": 18000,
+      "tempat": "Warung Bu Siti",
+      "description": "Indonesian salad with peanut sauce dressing"
+    },
+    {
+      "id": "rendang",
+      "nama_makanan": "Rendang",
+      "image_file": "rendang.jpg",
+      "kalori": 350,
+      "harga": 35000,
+      "tempat": "Restoran Padang Sederhana",
+      "description": "Slow-cooked beef in coconut and spices"
+    },
+    {
+      "id": "bakso",
+      "nama_makanan": "Bakso",
+      "image_file": "bakso.jpg",
+      "kalori": 220,
+      "harga": 15000,
+      "tempat": "Bakso Pak Kumis",
+      "description": "Indonesian meatball soup with noodles"
+    },
+    {
+      "id": "ayam_goreng",
+      "nama_makanan": "Ayam Goreng",
+      "image_file": "ayam_goreng.jpg",
+      "kalori": 280,
+      "harga": 22000,
+      "tempat": "Warung Ayam Goreng",
+      "description": "Indonesian fried chicken with crispy skin"
+    },
+    {
+      "id": "soto_ayam",
+      "nama_makanan": "Soto Ayam",
+      "image_file": "soto_ayam.jpg",
+      "kalori": 190,
+      "harga": 18000,
+      "tempat": "Soto Lamongan",
+      "description": "Indonesian chicken soup with turmeric broth"
+    }
+  ]
+}

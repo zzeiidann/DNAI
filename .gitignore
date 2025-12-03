@@ -1,0 +1,73 @@
+# DNAI .gitignore
+
+# Environment
+.env
+.env.local
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+ENV/
+
+# Conda (DO NOT PUSH - recreate with ./start-conda.sh)
+# Conda environments are stored in system folder, not in project
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# FAISS Index (generated, can be rebuilt)
+*.faiss
+
+# HuggingFace/Transformers cache (large model files)
+.cache/
+~/.cache/huggingface/
+backend/.cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Docker
+.docker/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.npm/
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Temp files
+*.tmp
+*.temp
+
+# Large files (models, weights)
+*.pt
+*.pth
+*.bin
+*.onnx
+*.pkl

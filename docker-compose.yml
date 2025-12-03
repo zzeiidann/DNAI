@@ -1,0 +1,53 @@
+# DNAI Docker Compose
+# Full stack deployment with backend, frontend, and volume management
+
+version: '3.8'
+
+services:
+  # Python Backend with CLIP + FAISS
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dnai-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - DATABASE_PATH=/app/data/dnai.db
+    volumes:
+      # Persist food images, FAISS index, and database
+      - food_data:/app/data
+      # Mount local food_images for development
+      - ./backend/data/food_images:/app/data/food_images:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s  # CLIP model takes time to load
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_API_URL=http://localhost:8000
+    container_name: dnai-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  food_data:
+    driver: local
