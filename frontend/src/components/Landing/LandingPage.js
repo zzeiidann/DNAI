@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Logo, { LogoModern } from '../Logo/Logo';
+import Logo from '../Logo/Logo';
 import '../Logo/Logo.css';
 import './LandingPage.css';
 
 function LandingPage() {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('dnai_theme');
+    return saved ? saved === 'dark' : true;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('dnai_theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,6 +44,29 @@ function LandingPage() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const toggleTheme = () => setIsDarkMode(!isDarkMode);
+
+  // Icons
+  const SunIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+  );
+  
+  const MoonIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  );
 
   const contributors = [
     { name: 'Muhammad Raffy Zeidan', role: 'Project Lead', avatar: '👨‍💻', github: 'zzeiidann' },
@@ -86,7 +117,7 @@ function LandingPage() {
   ];
 
   return (
-    <div className="landing-page">
+    <div className={`landing-page ${isDarkMode ? 'dark' : 'light'}`}>
       {/* Navigation */}
       <nav className={`landing-nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
@@ -122,6 +153,9 @@ function LandingPage() {
           </ul>
 
           <div className="nav-auth">
+            <button className="btn-theme" onClick={toggleTheme} title={isDarkMode ? 'Light Mode' : 'Dark Mode'}>
+              {isDarkMode ? <SunIcon /> : <MoonIcon />}
+            </button>
             <Link to="/login" className="btn-login">Masuk</Link>
             <Link to="/register" className="btn-register">Daftar</Link>
           </div>
@@ -233,16 +267,12 @@ function LandingPage() {
       {/* Features Section */}
       <section id="features" className="features-section">
         <div className="section-container">
-          <div className="section-header">
-            <span className="section-badge">Fitur Unggulan</span>
-            <h2 className="section-title">
-              Semua yang Anda butuhkan untuk
-              <span className="gradient-text"> hidup sehat</span>
-            </h2>
-            <p className="section-description">
-              DNAI dilengkapi dengan berbagai fitur canggih untuk membantu perjalanan kesehatan Anda
-            </p>
-          </div>
+          <h2 className="section-title">
+            <span className="gradient-text">Fitur Unggulan</span>
+          </h2>
+          <p className="section-description">
+            DNAI dilengkapi dengan berbagai fitur canggih untuk membantu perjalanan kesehatan Anda
+          </p>
 
           <div className="features-grid">
             {features.map((feature, index) => (
@@ -265,16 +295,12 @@ function LandingPage() {
       {/* Team Section */}
       <section id="team" className="team-section">
         <div className="section-container">
-          <div className="section-header">
-            <span className="section-badge">Tim Kami</span>
-            <h2 className="section-title">
-              Dibangun oleh
-              <span className="gradient-text"> tim yang passionate</span>
-            </h2>
-            <p className="section-description">
-              Bertemu dengan orang-orang hebat di balik DNAI
-            </p>
-          </div>
+          <h2 className="section-title">
+            <span className="gradient-text">Tim Kami</span>
+          </h2>
+          <p className="section-description">
+            Bertemu dengan orang-orang hebat di balik DNAI
+          </p>
 
           <div className="team-grid">
             {/* First row - 3 members */}

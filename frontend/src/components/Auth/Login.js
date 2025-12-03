@@ -11,6 +11,9 @@ function Login({ onLogin }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
+  // Get theme from localStorage
+  const isDarkMode = localStorage.getItem('dnai_theme') !== 'light';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +34,7 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div className="auth-page">
+    <div className={`auth-page ${isDarkMode ? 'dark' : 'light'}`}>
       <div className="auth-bg">
         <div className="auth-gradient"></div>
       </div>

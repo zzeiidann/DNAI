@@ -10,9 +10,6 @@ import LandingPage from './components/Landing/LandingPage';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Dashboard from './components/Dashboard/Dashboard';
-import FoodAnalyzer from './components/Food/FoodAnalyzer';
-import CalorieTracker from './components/Calorie/CalorieTracker';
-import ChatBot from './components/Chat/ChatBot';
 
 // Services
 import authService from './services/authService';
@@ -40,7 +37,11 @@ function App() {
   };
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return (
+      <div className="loading-screen">
+        <div className="loader"></div>
+      </div>
+    );
   }
 
   return (
@@ -72,36 +73,16 @@ function App() {
             } 
           />
           <Route 
-            path="/analyze" 
-            element={
-              isAuthenticated ? 
-              <FoodAnalyzer onLogout={handleLogout} /> : 
-              <Navigate to="/login" />
-            } 
-          />
-          <Route 
-            path="/tracker" 
-            element={
-              isAuthenticated ? 
-              <CalorieTracker onLogout={handleLogout} /> : 
-              <Navigate to="/login" />
-            } 
-          />
-          <Route 
-            path="/chat" 
-            element={
-              isAuthenticated ? 
-              <ChatBot onLogout={handleLogout} /> : 
-              <Navigate to="/login" />
-            } 
-          />
-          <Route 
             path="/" 
             element={
               !isAuthenticated ? 
               <LandingPage /> : 
               <Navigate to="/dashboard" />
             } 
+          />
+          <Route 
+            path="*" 
+            element={<Navigate to={isAuthenticated ? "/dashboard" : "/"} />} 
           />
         </Routes>
       </div>
