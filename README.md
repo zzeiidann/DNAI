@@ -200,8 +200,8 @@ open http://localhost:8000/docs
   - CLIP (openai/clip-vit-base-patch32) - Image embeddings
   - FAISS - Vector similarity search
   - HuggingFace Transformers - Model inference
-- **LLM**: Google Gemini Pro 1.5 + LangChain
-- **Database**: SQLite3
+- **LLM**: Google Gemini Flash 2.5 + LangChain
+- **Database**: ChromaDB
 - **Authentication**: JWT (PyJWT, python-jose[cryptography])
 - **Image Processing**: Pillow (PIL)
 - **Async Server**: Uvicorn (ASGI)
