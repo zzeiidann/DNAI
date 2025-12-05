@@ -1,6 +1,23 @@
 # DNAI - Food Recognition & Calorie Tracking System
 
+<div align="center">
+
 ![DNAI Food Recognition](DNAI%20-%20Food%20Recognition.jpeg)
+
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-Latest-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-18.2-61DAFB?style=flat&logo=react&logoColor=black)](https://reactjs.org/)
+[![FAISS](https://img.shields.io/badge/FAISS-Vector%20DB-00ADD8?style=flat)](https://github.com/facebookresearch/faiss)
+[![CLIP](https://img.shields.io/badge/CLIP-OpenAI-412991?style=flat)](https://github.com/openai/CLIP)
+
+**A powerful Retrieval-Augmented Generation system that combines image and text embeddings for intelligent multimodal search**
+
+[Quick Start](#quick-start) • [Features](#features) • [API Documentation](#api-documentation) • [Tech Stack](#technology-stack)
+
+</div>
+
+---
 
 AI-powered food recognition system using CLIP and FAISS for image-based food identification, calorie tracking, and nutrition consultation with Gemini AI integration.
 
@@ -177,17 +194,39 @@ open http://localhost:8000/docs
 
 ## Technology Stack
 
-| Component | Technology |
-|-----------|------------|
-| Backend Framework | FastAPI, Python 3.11 |
-| AI/ML Models | CLIP (HuggingFace Transformers) |
-| Vector Database | FAISS (Facebook AI Similarity Search) |
-| LLM Integration | Gemini Pro + LangChain |
-| Database | SQLite |
-| Frontend Framework | React 18, React Router v6 |
-| Authentication | JWT (PyJWT, python-jose) |
-| Containerization | Docker, Docker Compose |
-| Web Server | Nginx |
+### Backend
+- **Framework**: FastAPI (Python 3.11)
+- **AI/ML**:
+  - CLIP (openai/clip-vit-base-patch32) - Image embeddings
+  - FAISS - Vector similarity search
+  - HuggingFace Transformers - Model inference
+- **LLM**: Google Gemini Pro 1.5 + LangChain
+- **Database**: SQLite3
+- **Authentication**: JWT (PyJWT, python-jose[cryptography])
+- **Image Processing**: Pillow (PIL)
+- **Async Server**: Uvicorn (ASGI)
+
+### Frontend
+- **Framework**: React 18.2
+- **Routing**: React Router v6
+- **Markdown Rendering**: react-markdown
+- **HTTP Client**: Fetch API
+- **Build Tool**: Create React App (react-scripts)
+
+### Infrastructure
+- **Containerization**: Docker, Docker Compose
+- **Web Server**: Nginx (production)
+- **Development**: Node.js (frontend), Python venv (backend)
+
+### Key Dependencies
+```
+torch>=2.0.0
+transformers>=4.35.0
+faiss-cpu>=1.7.4
+langchain>=0.1.0
+langchain-google-genai>=0.0.5
+fastapi>=0.104.0
+```
 
 ## API Documentation
 
