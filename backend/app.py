@@ -2,6 +2,10 @@
 DNAI Backend - Food Recognition & Tracking System
 Main application entry point with FastAPI endpoints
 """
+import os
+# Fix OpenMP duplicate library issue on macOS
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
 from fastapi import FastAPI, UploadFile, File, Depends, HTTPException, status, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -9,7 +13,6 @@ from pydantic import BaseModel
 from datetime import datetime, timedelta
 from typing import Optional
 import uvicorn
-import os
 
 from models.food import FoodResponse, CalorieTracking
 from services.clip_service import CLIPService
@@ -126,6 +129,17 @@ async def list_all_foods():
     """Get all foods in the database"""
     service = get_clip_service()
     return await service.get_all_foods()
+
+
+@app.post("/food/analyze-test")
+async def analyze_food_image_test(
+    file: UploadFile = File(...)
+):
+    """Test endpoint - Analyze food image without auth"""
+    service = get_clip_service()
+    image_data = await file.read()
+    food_data = await service.analyze_food_image(image_data)
+    return food_data
 
 
 @app.post("/food/analyze")

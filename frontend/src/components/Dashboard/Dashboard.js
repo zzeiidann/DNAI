@@ -43,6 +43,7 @@ const Dashboard = () => {
   const [preview, setPreview] = useState(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [foodResult, setFoodResult] = useState(null);
+  const [selectedFood, setSelectedFood] = useState(null);
   const [tracked, setTracked] = useState(false);
   const fileInputRef = useRef(null);
   
@@ -126,7 +127,9 @@ const Dashboard = () => {
         body: formData,
       });
       if (!response.ok) throw new Error('Gagal menganalisis');
-      setFoodResult(await response.json());
+      const result = await response.json();
+      setFoodResult(result);
+      setSelectedFood(result); // Auto select main result
     } catch (err) {
       alert('Gagal menganalisis gambar');
     } finally {
@@ -134,7 +137,22 @@ const Dashboard = () => {
     }
   };
 
-  const addToTracker = (food) => {
+  const resetFoodAnalyzer = () => {
+    setSelectedFile(null);
+    setPreview(null);
+    setFoodResult(null);
+    setSelectedFood(null);
+    setTracked(false);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const selectAlternative = (alt) => {
+    setSelectedFood(alt);
+    setTracked(false);
+  };
+
+  const addToTracker = (food = selectedFood) => {
+    if (!food) return;
     const newEntry = {
       id: Date.now(),
       date: new Date().toISOString(),
@@ -364,23 +382,87 @@ const Dashboard = () => {
                 )}
 
                 {foodResult && (
-                  <div className="result-box">
-                    <div className="result-header">
-                      <h3>{foodResult.food_name}</h3>
-                      <span className="accuracy">{(foodResult.confidence * 100).toFixed(0)}%</span>
-                    </div>
-                    <div className="nutrition-row">
-                      <div className="nutri"><span className="val orange">{foodResult.calories}</span><span className="lbl">Kalori</span></div>
-                      <div className="nutri"><span className="val blue">{foodResult.protein}g</span><span className="lbl">Protein</span></div>
-                      <div className="nutri"><span className="val purple">{foodResult.carbs}g</span><span className="lbl">Karbo</span></div>
-                      <div className="nutri"><span className="val cyan">{foodResult.fat}g</span><span className="lbl">Lemak</span></div>
-                    </div>
-                    {!tracked ? (
-                      <button className="btn-add" onClick={() => addToTracker(foodResult)}><Icon.Plus /> Tambah ke Tracker</button>
-                    ) : (
-                      <div className="success-msg"><Icon.Check /> Ditambahkan!</div>
+                  <>
+                    <button className="btn-reset" onClick={resetFoodAnalyzer} style={{marginBottom: '1rem', background: '#dc2626', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                      <Icon.Close />
+                      RESET
+                    </button>
+                    
+                    {foodResult.alternatives && foodResult.alternatives.length > 0 && (
+                      <div style={{marginBottom: '1.5rem', padding: '1.25rem', background: 'rgba(30, 41, 59, 0.6)', borderRadius: '12px', border: '1px solid rgba(71, 85, 105, 0.5)'}}>
+                        <h4 style={{marginBottom: '1rem', color: '#e2e8f0', fontSize: '0.95rem', fontWeight: '700'}}>Bukan makanan yang tepat? Pilih alternatif:</h4>
+                        <div style={{display: 'flex', flexWrap: 'wrap', gap: '0.75rem'}}>
+                          <button
+                            onClick={() => selectAlternative(foodResult)}
+                            style={{
+                              padding: '1rem 1.25rem',
+                              borderRadius: '10px',
+                              border: selectedFood?.food_name === foodResult.food_name ? '2px solid #10b981' : '1px solid rgba(71, 85, 105, 0.5)',
+                              background: selectedFood?.food_name === foodResult.food_name ? 'rgba(16, 185, 129, 0.15)' : 'rgba(51, 65, 85, 0.5)',
+                              color: '#e2e8f0',
+                              cursor: 'pointer',
+                              fontWeight: '600',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'flex-start',
+                              gap: '0.5rem',
+                              transition: 'all 0.2s'
+                            }}
+                          >
+                            <span style={{fontSize: '0.95rem', fontWeight: '700'}}>{foodResult.food_name}</span>
+                            <span style={{background: 'rgba(16, 185, 129, 0.2)', padding: '0.25rem 0.75rem', borderRadius: '6px', fontSize: '0.8rem', color: '#6ee7b7', fontWeight: '600'}}>
+                              {(foodResult.confidence * 100).toFixed(0)}% Match
+                            </span>
+                          </button>
+                          {foodResult.alternatives.map((alt, i) => (
+                            <button
+                              key={i}
+                              onClick={() => selectAlternative(alt)}
+                              style={{
+                                padding: '1rem 1.25rem',
+                                borderRadius: '10px',
+                                border: selectedFood?.food_name === alt.food_name ? '2px solid #f59e0b' : '1px solid rgba(71, 85, 105, 0.5)',
+                                background: selectedFood?.food_name === alt.food_name ? 'rgba(245, 158, 11, 0.15)' : 'rgba(51, 65, 85, 0.5)',
+                                color: '#e2e8f0',
+                                cursor: 'pointer',
+                                fontWeight: '600',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-start',
+                                gap: '0.5rem',
+                                transition: 'all 0.2s'
+                              }}
+                            >
+                              <span style={{fontSize: '0.95rem', fontWeight: '700'}}>{alt.food_name}</span>
+                              <span style={{background: 'rgba(245, 158, 11, 0.2)', padding: '0.25rem 0.75rem', borderRadius: '6px', fontSize: '0.8rem', color: '#fbbf24', fontWeight: '600'}}>
+                                {(alt.confidence * 100).toFixed(0)}% Match
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
                     )}
-                  </div>
+
+                    {selectedFood && (
+                      <div className="result-box">
+                        <div className="result-header">
+                          <h3>{selectedFood.food_name}</h3>
+                          <span className="accuracy">{(selectedFood.confidence * 100).toFixed(0)}%</span>
+                        </div>
+                        <div className="nutrition-row">
+                          <div className="nutri"><span className="val orange">{selectedFood.calories}</span><span className="lbl">Kalori</span></div>
+                          <div className="nutri"><span className="val blue">{selectedFood.protein}g</span><span className="lbl">Protein</span></div>
+                          <div className="nutri"><span className="val purple">{selectedFood.carbs}g</span><span className="lbl">Karbo</span></div>
+                          <div className="nutri"><span className="val cyan">{selectedFood.fat}g</span><span className="lbl">Lemak</span></div>
+                        </div>
+                        {!tracked ? (
+                          <button className="btn-add" onClick={() => addToTracker()}><Icon.Plus /> Tambah ke Tracker</button>
+                        ) : (
+                          <div className="success-msg"><Icon.Check /> Ditambahkan!</div>
+                        )}
+                      </div>
+                    )}
+                  </>
                 )}
 
                 {!preview && (

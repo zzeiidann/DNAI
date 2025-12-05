@@ -15,14 +15,14 @@
 
 /* ===== LIGHT THEME ===== */
 .auth-page.light {
-  --auth-bg: #f8fafc;
-  --auth-card-bg: rgba(255, 255, 255, 0.95);
+  --auth-bg: #fdf6e9;
+  --auth-card-bg: rgba(255, 249, 240, 0.95);
   --auth-text: #1e293b;
   --auth-text-muted: #64748b;
   --auth-border: rgba(249, 115, 22, 0.2);
   --auth-accent: #f97316;
   --auth-accent2: #fb923c;
-  --auth-input-bg: #fff7ed;
+  --auth-input-bg: #fff9f0;
   --auth-glow: rgba(249, 115, 22, 0.2);
 }
 

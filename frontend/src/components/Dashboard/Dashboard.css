@@ -17,10 +17,10 @@
   --input-bg: #0a1628;
 }
 
-/* ===== LIGHT THEME (White & Orange) ===== */
+/* ===== LIGHT THEME (Cream & Orange) ===== */
 .app.light {
-  --bg-main: #f8fafc;
-  --bg-card: #ffffff;
+  --bg-main: #fdf6e9;
+  --bg-card: #fff9f0;
   --bg-card-hover: #fff7ed;
   --accent: #f97316;
   --accent-hover: #fb923c;
@@ -31,7 +31,7 @@
   --success: #22c55e;
   --warning: #f59e0b;
   --danger: #ef4444;
-  --input-bg: #fff7ed;
+  --input-bg: #fff9f0;
 }
 
 * {

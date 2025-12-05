@@ -11,11 +11,13 @@ from services.faiss_service import FAISSVectorDB
 class CLIPService:
     _instance = None
     _faiss_db = None
+    _data_dir = None
     
-    def __new__(cls):
+    def __new__(cls, data_dir: str = "data"):
         """Singleton pattern to avoid loading model multiple times"""
         if cls._instance is None:
             cls._instance = super().__new__(cls)
+            cls._data_dir = data_dir
         return cls._instance
     
     def __init__(self, data_dir: str = "data"):
@@ -45,12 +47,15 @@ class CLIPService:
         
         Returns:
             {
-                "nama_makanan": str,
-                "kalori": int,
-                "harga": int,
-                "tempat": str,
-                "confidence": float,
-                "alternatives": List[Dict]  # Other possible matches
+                "food_name": str,
+                "calories": int,
+                "protein": float,
+                "carbs": float,
+                "fat": float,
+                "price": int,
+                "location": str,
+                "confidence": float (0.0-1.0),
+                "alternatives": List[Dict]
             }
         """
         # Search FAISS database
@@ -58,10 +63,13 @@ class CLIPService:
         
         if not results:
             return {
-                "nama_makanan": "Unknown",
-                "kalori": 0,
-                "harga": 0,
-                "tempat": "Unknown",
+                "food_name": "Unknown",
+                "calories": 0,
+                "protein": 0,
+                "carbs": 0,
+                "fat": 0,
+                "price": 0,
+                "location": "Unknown",
                 "confidence": 0,
                 "alternatives": [],
                 "error": "No matching food found in database"
@@ -70,13 +78,37 @@ class CLIPService:
         # Best match
         best_match = results[0]
         
+        # Convert confidence from percentage (0-100) to decimal (0-1)
+        confidence = best_match["confidence"] / 100.0
+        
+        # Filter alternatives to remove duplicates
+        best_food_name = best_match["nama_makanan"]
+        seen_names = {best_food_name}
+        unique_alternatives = []
+        
+        for alt in results[1:]:
+            alt_name = alt["nama_makanan"]
+            if alt_name not in seen_names:
+                seen_names.add(alt_name)
+                unique_alternatives.append({
+                    "food_name": alt_name,
+                    "calories": alt.get("kalori", 0),
+                    "protein": alt.get("protein", 0),
+                    "carbs": alt.get("karbo", 0),
+                    "fat": alt.get("lemak", 0),
+                    "confidence": alt["confidence"] / 100.0
+                })
+        
         return {
-            "nama_makanan": best_match["nama_makanan"],
-            "kalori": best_match["kalori"],
-            "harga": best_match["harga"],
-            "tempat": best_match["tempat"],
-            "confidence": best_match["confidence"],
-            "alternatives": results[1:] if len(results) > 1 else []
+            "food_name": best_food_name,
+            "calories": best_match.get("kalori", 0),
+            "protein": best_match.get("protein", 0),
+            "carbs": best_match.get("karbo", 0),
+            "fat": best_match.get("lemak", 0),
+            "price": best_match.get("harga", 0),
+            "location": best_match.get("tempat", "Unknown"),
+            "confidence": confidence,
+            "alternatives": unique_alternatives
         }
     
     async def get_all_foods(self) -> List[Dict]:

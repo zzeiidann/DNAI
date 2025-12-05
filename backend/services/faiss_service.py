@@ -30,20 +30,23 @@ class FAISSVectorDB:
         self.images_dir = self.data_dir / "food_images"
         self.metadata_file = self.data_dir / "food_metadata.json"
         self.index_file = self.data_dir / index_file
+        self.id_mapping_file = self.data_dir / "id_mapping.json"
         self.embedding_dim = embedding_dim
         
         # Initialize CLIP model
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = "mps" if torch.backends.mps.is_available() else "cpu"
+        print(f"Loading CLIP model on device: {self.device}")
         self.model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(self.device)
         self.processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
         
         # Load metadata
         self.food_metadata = self._load_metadata()
         
-        # Initialize or load FAISS index
-        self.index = None
-        self.id_to_food = {}  # Maps FAISS index to food ID
-        self._initialize_index()
+        # Load ID mapping
+        self.id_to_food = self._load_id_mapping()
+        
+        # Load FAISS index
+        self.index = self._load_index()
     
     def _load_metadata(self) -> Dict:
         """Load food metadata from JSON file"""
@@ -52,24 +55,35 @@ class FAISSVectorDB:
                 return json.load(f)
         return {"foods": []}
     
+    def _load_id_mapping(self) -> Dict:
+        """Load ID mapping from JSON file"""
+        if self.id_mapping_file.exists():
+            with open(self.id_mapping_file, 'r', encoding='utf-8') as f:
+                mapping = json.load(f)
+                # Convert string keys back to int
+                return {int(k): v for k, v in mapping.items()}
+        return {}
+    
+    def _load_index(self):
+        """Load existing FAISS index"""
+        if self.index_file.exists():
+            print(f"Loading FAISS index from {self.index_file}")
+            index = faiss.read_index(str(self.index_file))
+            print(f"Loaded index with {index.ntotal} vectors")
+            return index
+        else:
+            print("No FAISS index found. Run scripts/build_index.py first!")
+            return faiss.IndexFlatL2(self.embedding_dim)
+    
     def _save_metadata(self):
         """Save food metadata to JSON file"""
         with open(self.metadata_file, 'w', encoding='utf-8') as f:
             json.dump(self.food_metadata, f, ensure_ascii=False, indent=2)
     
-    def _initialize_index(self):
-        """Initialize or load existing FAISS index"""
-        if self.index_file.exists():
-            print(f"Loading existing FAISS index from {self.index_file}")
-            self.index = faiss.read_index(str(self.index_file))
-            # Rebuild id_to_food mapping
-            for idx, food in enumerate(self.food_metadata["foods"]):
-                self.id_to_food[idx] = food["id"]
-        else:
-            print("Creating new FAISS index...")
-            # Use L2 distance for similarity search
-            self.index = faiss.IndexFlatL2(self.embedding_dim)
-            self._build_index_from_images()
+    def _save_id_mapping(self):
+        """Save ID mapping to JSON file"""
+        with open(self.id_mapping_file, 'w', encoding='utf-8') as f:
+            json.dump(self.id_to_food, f)
     
     def _get_image_embedding(self, image: Image.Image) -> np.ndarray:
         """
@@ -90,46 +104,10 @@ class FAISSVectorDB:
         
         return image_features.cpu().numpy().astype('float32')
     
-    def _build_index_from_images(self):
-        """Build FAISS index from all images in food_images directory"""
-        print("Building FAISS index from food images...")
-        
-        embeddings = []
-        valid_foods = []
-        
-        for idx, food in enumerate(self.food_metadata["foods"]):
-            image_path = self.images_dir / food["image_file"]
-            
-            if image_path.exists():
-                try:
-                    image = Image.open(image_path).convert("RGB")
-                    embedding = self._get_image_embedding(image)
-                    embeddings.append(embedding)
-                    self.id_to_food[len(valid_foods)] = food["id"]
-                    valid_foods.append(food)
-                    print(f"  ✓ Indexed: {food['nama_makanan']}")
-                except Exception as e:
-                    print(f"  ✗ Error processing {food['image_file']}: {e}")
-            else:
-                print(f"  ⚠ Image not found: {food['image_file']}")
-        
-        if embeddings:
-            # Stack embeddings and add to FAISS index
-            embeddings_matrix = np.vstack(embeddings)
-            self.index.add(embeddings_matrix)
-            
-            # Save the index
-            faiss.write_index(self.index, str(self.index_file))
-            print(f"FAISS index saved with {len(embeddings)} food items")
-        else:
-            print("No images found to index. Add images to data/food_images/")
-    
     def rebuild_index(self):
-        """Force rebuild of the FAISS index"""
-        print("Rebuilding FAISS index...")
-        self.index = faiss.IndexFlatL2(self.embedding_dim)
-        self.id_to_food = {}
-        self._build_index_from_images()
+        """Force rebuild of the FAISS index - run scripts/build_index.py instead"""
+        print("To rebuild index, run: python scripts/build_index.py")
+        pass
     
     def add_food(self, 
                  food_id: str,
@@ -219,19 +197,26 @@ class FAISSVectorDB:
             
             food_id = self.id_to_food.get(idx)
             if food_id:
-                # Find food metadata
+                # Find food metadata (id is stored as string)
                 food_data = next(
-                    (f for f in self.food_metadata["foods"] if f["id"] == food_id),
+                    (f for f in self.food_metadata["foods"] if str(f["id"]) == str(food_id)),
                     None
                 )
                 if food_data:
                     # Convert L2 distance to similarity score (0-100)
                     # Lower distance = higher similarity
-                    similarity = max(0, 100 - (dist * 50))
+                    similarity = max(0.0, 100.0 - (float(dist) * 50.0))
                     results.append({
-                        **food_data,
-                        "confidence": round(similarity, 2),
-                        "distance": float(dist)
+                        "nama_makanan": food_data.get("nama_makanan", "Unknown"),
+                        "kalori": int(food_data.get("kalori", 0)),
+                        "protein": float(food_data.get("protein", 0)),
+                        "karbo": float(food_data.get("karbo", 0)),
+                        "lemak": float(food_data.get("lemak", 0)),
+                        "harga": int(food_data.get("harga", 0)),
+                        "tempat": food_data.get("tempat", "Unknown"),
+                        "image_file": food_data.get("image_file", ""),
+                        "confidence": round(float(similarity), 2),
+                        "distance": round(float(dist), 4)
                     })
         
         return results

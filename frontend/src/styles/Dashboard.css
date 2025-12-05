@@ -1776,6 +1776,67 @@ button.nav-item {
   justify-content: center;
 }
 
+/* Food Options Selection */
+.food-options {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.options-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.options-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.food-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.food-option:hover {
+  background: var(--card-hover);
+  border-color: var(--accent-blue);
+}
+
+.food-option.selected {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 1px var(--accent-blue);
+}
+
+.food-option .option-name {
+  font-weight: 500;
+}
+
+.food-option .option-confidence {
+  padding: 0.125rem 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.food-option.selected .option-confidence {
+  background: rgba(59, 130, 246, 0.3);
+  color: var(--accent-blue);
+}
+
 /* Food Result Enhanced */
 .result-card-container .food-result {
   display: flex;

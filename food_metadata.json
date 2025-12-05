@@ -1,0 +1,632 @@
+[
+  {
+    "id": 1,
+    "name": "Nasi Alo Bistik",
+    "image": "Nasi Alo Bistik.jpg",
+    "price": "Rp20.000",
+    "calories": 600
+  },
+  {
+    "id": 2,
+    "name": "Pizza Margarita",
+    "image": "Pizza Margarita.jpg",
+    "price": "Rp22.000",
+    "calories": 2000
+  },
+  {
+    "id": 3,
+    "name": "Nasi Ikan fillet asam manis  capcay",
+    "image": "Nasi Ikan fillet asam manis  capcay.jpg",
+    "price": "Rp19.000",
+    "calories": 650
+  },
+  {
+    "id": 4,
+    "name": "Nasi Ayam Hainan",
+    "image": "Nasi Ayam Hainan.jpg",
+    "price": "Rp19.000",
+    "calories": 550
+  },
+  {
+    "id": 5,
+    "name": "Nasi Bebek Madura",
+    "image": "Nasi Bebek Madura.jpg",
+    "price": "Rp19.000",
+    "calories": 900
+  },
+  {
+    "id": 6,
+    "name": "Bubur Ayam",
+    "image": "Bubur Ayam.jpg",
+    "price": "Rp20.000",
+    "calories": 600
+  },
+  {
+    "id": 7,
+    "name": "Nasi Ayam Bakar Kremes",
+    "image": "Nasi Ayam Bakar Kremes.jpg",
+    "price": "Rp18.000",
+    "calories": 700
+  },
+  {
+    "id": 8,
+    "name": "Takoyaki",
+    "image": "Takoyaki.jpg",
+    "price": "Rp12.000",
+    "calories": 300
+  },
+  {
+    "id": 9,
+    "name": "Ketoprak Telor",
+    "image": "Ketoprak Telor.jpg",
+    "price": "Rp13.000",
+    "calories": 750
+  },
+  {
+    "id": 10,
+    "name": "Ramen Kuah",
+    "image": "Ramen Kuah.jpg",
+    "price": "Rp25.000",
+    "calories": 800
+  },
+  {
+    "id": 11,
+    "name": "Nasi Ayam Geprek Saos Keju",
+    "image": "Nasi Ayam Geprek Saos Keju.jpg",
+    "price": "Rp21.000",
+    "calories": 1000
+  },
+  {
+    "id": 12,
+    "name": "Siomay",
+    "image": "Siomay.jpg",
+    "price": "Rp10.000",
+    "calories": 450
+  },
+  {
+    "id": 13,
+    "name": "Batagor",
+    "image": "Batagor.jpg",
+    "price": "Rp10.000",
+    "calories": 600
+  },
+  {
+    "id": 14,
+    "name": "Beverly",
+    "image": "Beverly.jpg",
+    "price": "Rp15.000",
+    "calories": 650
+  },
+  {
+    "id": 15,
+    "name": "Tempe Mendoan",
+    "image": "Tempe Mendoan.jpg",
+    "price": "Rp5.000",
+    "calories": 520
+  },
+  {
+    "id": 16,
+    "name": "Mie Yamin",
+    "image": "Mie Yamin.jpg",
+    "price": "Rp14.000",
+    "calories": 0
+  },
+  {
+    "id": 17,
+    "name": "Nasi Goreng Kambing",
+    "image": "Nasi Goreng Kambing.jpg",
+    "price": "Rp16.000",
+    "calories": 0
+  },
+  {
+    "id": 18,
+    "name": "Bubur Ayam",
+    "image": "Bubur Ayam.jpg",
+    "price": "Rp14.000",
+    "calories": 400
+  },
+  {
+    "id": 19,
+    "name": "Pisang Keju",
+    "image": "Pisang Keju.jpg",
+    "price": "Rp12.000",
+    "calories": 500
+  },
+  {
+    "id": 20,
+    "name": "Nasi Bebek Madura",
+    "image": "Nasi Bebek Madura.jpg",
+    "price": "Rp18.000",
+    "calories": 800
+  },
+  {
+    "id": 21,
+    "name": "Ayam Bakar Kremes",
+    "image": "Ayam Bakar Kremes.jpg",
+    "price": "Rp18.000",
+    "calories": 650
+  },
+  {
+    "id": 22,
+    "name": "Bakso Malang",
+    "image": "Bakso Malang.jpg",
+    "price": "Rp15.000",
+    "calories": 420
+  },
+  {
+    "id": 23,
+    "name": "Rice Bowl Ayam Sambal Matah",
+    "image": "Rice Bowl Ayam Sambal Matah.jpg",
+    "price": "Rp16.000",
+    "calories": 700
+  },
+  {
+    "id": 24,
+    "name": "Rice Bowl Ayam Sambal Matah",
+    "image": "Rice Bowl Ayam Sambal Matah.jpg",
+    "price": "Rp16.000",
+    "calories": 700
+  },
+  {
+    "id": 25,
+    "name": "Rice Bowl Rica - Rica",
+    "image": "Rice Bowl Rica - Rica.jpg",
+    "price": "Rp17.000",
+    "calories": 700
+  },
+  {
+    "id": 26,
+    "name": "Sate Kambing",
+    "image": "Sate Kambing.jpg",
+    "price": "Rp20.000",
+    "calories": 600
+  },
+  {
+    "id": 27,
+    "name": "Nasi Bebek Madura",
+    "image": "Nasi Bebek Madura.jpg",
+    "price": "Rp18.000",
+    "calories": 800
+  },
+  {
+    "id": 28,
+    "name": "Nasi Bebek Madura",
+    "image": "Nasi Bebek Madura.jpg",
+    "price": "Rp18.000",
+    "calories": 800
+  },
+  {
+    "id": 29,
+    "name": "Bakso Malang",
+    "image": "Bakso Malang.jpg",
+    "price": "Rp15.000",
+    "calories": 420
+  },
+  {
+    "id": 30,
+    "name": "Rice Bowl Ayam Sambal Matah",
+    "image": "Rice Bowl Ayam Sambal Matah.jpg",
+    "price": "Rp16.000",
+    "calories": 700
+  },
+  {
+    "id": 31,
+    "name": "Nasi Alo",
+    "image": "Nasi Alo.jpg",
+    "price": "Rp. 18.000",
+    "calories": 520
+  },
+  {
+    "id": 32,
+    "name": "Nasi Sop Ayam",
+    "image": "Nasi Sop Ayam.jpg",
+    "price": "Rp. 16.000",
+    "calories": 410
+  },
+  {
+    "id": 33,
+    "name": "Chicken Steak",
+    "image": "Chicken Steak.jpg",
+    "price": "Rp. 18.000",
+    "calories": 610
+  },
+  {
+    "id": 34,
+    "name": "Mie Ayam Bakso",
+    "image": "Mie Ayam Bakso.jpg",
+    "price": "Rp. 17.000",
+    "calories": 610
+  },
+  {
+    "id": 35,
+    "name": "Bakwan Malang",
+    "image": "Bakwan Malang.jpg",
+    "price": "Rp. 16.000",
+    "calories": 460
+  },
+  {
+    "id": 36,
+    "name": "Soto Ayam",
+    "image": "Soto Ayam.jpg",
+    "price": "Rp. 17.000",
+    "calories": 490
+  },
+  {
+    "id": 37,
+    "name": "Pisang Goreng Milo",
+    "image": "Pisang Goreng Milo.jpg",
+    "price": "Rp. 16.000",
+    "calories": 800
+  },
+  {
+    "id": 38,
+    "name": "Gado Gado",
+    "image": "Gado Gado.jpg",
+    "price": "Rp. 10.000",
+    "calories": 590
+  },
+  {
+    "id": 39,
+    "name": "Nasi Ikan Dori",
+    "image": "Nasi Ikan Dori.jpg",
+    "price": "Rp. 18.000",
+    "calories": 710
+  },
+  {
+    "id": 40,
+    "name": "Tteokpokki",
+    "image": "Tteokpokki.jpg",
+    "price": "Rp. 16.000",
+    "calories": 470
+  },
+  {
+    "id": 41,
+    "name": "Nasi Gudeg",
+    "image": "Nasi Gudeg.jpg",
+    "price": "Rp. 22.000",
+    "calories": 780
+  },
+  {
+    "id": 42,
+    "name": "Cimol Kentang",
+    "image": "Cimol Kentang.jpg",
+    "price": "Rp. 8.000",
+    "calories": 460
+  },
+  {
+    "id": 43,
+    "name": "Takoyaki",
+    "image": "Takoyaki.jpg",
+    "price": "Rp. 15.000",
+    "calories": 530
+  },
+  {
+    "id": 44,
+    "name": "Fuyunghai",
+    "image": "Fuyunghai.jpg",
+    "price": "Rp. 15.000",
+    "calories": 740
+  },
+  {
+    "id": 45,
+    "name": "Nasi Kari Ayam",
+    "image": "Nasi Kari Ayam.jpg",
+    "price": "Rp. 18.000",
+    "calories": 760
+  },
+  {
+    "id": 46,
+    "name": "Es Kul Kul",
+    "image": "Es Kul Kul,jpg",
+    "price": "Rp. 5.000",
+    "calories": 120
+  },
+  {
+    "id": 47,
+    "name": "Donat Gula",
+    "image": "Donat Gula.jpg",
+    "price": "Rp. 2.000",
+    "calories": 200
+  },
+  {
+    "id": 48,
+    "name": "Crepes Cokelat Keju",
+    "image": "Crepes Cokelat Keju.jpg",
+    "price": "Rp. 12.000",
+    "calories": 275
+  },
+  {
+    "id": 49,
+    "name": "Tahu Bulat (8 pcs)",
+    "image": "Tahu Bulat (8 pcs),jpg",
+    "price": "Rp. 8.000",
+    "calories": 350
+  },
+  {
+    "id": 50,
+    "name": "Gorengan Tahu Isi",
+    "image": "Gorengan Tahu Isi,jpg",
+    "price": "Rp. 2.000",
+    "calories": 134
+  },
+  {
+    "id": 51,
+    "name": "Es Krim Vanila",
+    "image": "Es Krim Vanila,jpg",
+    "price": "RP. 8.500",
+    "calories": 200
+  },
+  {
+    "id": 52,
+    "name": "Jamur Crispy",
+    "image": "Jamur Crispy.jpg",
+    "price": "Rp. 8.000",
+    "calories": 250
+  },
+  {
+    "id": 53,
+    "name": "Lontong Kari",
+    "image": "Lontong Kari.jpg",
+    "price": "Rp. 15.000",
+    "calories": 500
+  },
+  {
+    "id": 54,
+    "name": "Gorengan Bakwan",
+    "image": "Gorengan Bakwan.jpg",
+    "price": "Rp. 2000",
+    "calories": 135
+  },
+  {
+    "id": 55,
+    "name": "Gorengan Pisang",
+    "image": "Gorengan Pisang.jpg",
+    "price": "Rp. 2000",
+    "calories": 160
+  },
+  {
+    "id": 56,
+    "name": "Cilok Pedas Ayam",
+    "image": "Cilok Pedas Ayam,jpg",
+    "price": "Rp. 5.000",
+    "calories": 185
+  },
+  {
+    "id": 57,
+    "name": "Dimsum",
+    "image": "Dimsum.jpg",
+    "price": "Rp. 12.000",
+    "calories": 255
+  },
+  {
+    "id": 58,
+    "name": "Cipuk (8pcs)",
+    "image": "Cipuk (8pcs).jpg",
+    "price": "Rp. 8.000",
+    "calories": 350
+  },
+  {
+    "id": 59,
+    "name": "Kue Pancong",
+    "image": "Kue Pancong.jpg",
+    "price": "Rp. 10.000",
+    "calories": 200
+  },
+  {
+    "id": 60,
+    "name": "Pisang Crispy Cokelat Keju",
+    "image": "Pisang Crispy Cokelat Keju.jpg",
+    "price": "Rp. 15.000",
+    "calories": 500
+  },
+  {
+    "id": 61,
+    "name": "Ayam Bengis",
+    "image": "Ayam Bengis5.jpg",
+    "price": "Rp18.000",
+    "calories": 800
+  },
+  {
+    "id": 62,
+    "name": "Ayam Geprek Keju",
+    "image": "Ayam Geprek Keju5.jpg",
+    "price": "Rp18.000",
+    "calories": 900
+  },
+  {
+    "id": 63,
+    "name": "Ayam Bakar Madu",
+    "image": "Ayam Bakar Madu5.jpg",
+    "price": "Rp18.000",
+    "calories": 780
+  },
+  {
+    "id": 64,
+    "name": "Ayam Kalasan",
+    "image": "Ayam Kalasan5.jpg",
+    "price": "Rp18.000",
+    "calories": 700
+  },
+  {
+    "id": 65,
+    "name": "Ayam Penyet",
+    "image": "Ayam Penyet5.jpg",
+    "price": "Rp16.000",
+    "calories": 800
+  },
+  {
+    "id": 66,
+    "name": "Ayam Katsu",
+    "image": "Ayam Katsu5.jpg",
+    "price": "Rp15.000",
+    "calories": 700
+  },
+  {
+    "id": 67,
+    "name": "Mie Goreng",
+    "image": "Mie Goreng5.jpg",
+    "price": "Rp16.000",
+    "calories": 650
+  },
+  {
+    "id": 68,
+    "name": "Cimol Bojot",
+    "image": "Cimol Bojot5.jpg",
+    "price": "Rp22.000",
+    "calories": 375
+  },
+  {
+    "id": 69,
+    "name": "Sate Padang",
+    "image": "Sate Padang5.jpg",
+    "price": "Rp25.000",
+    "calories": 800
+  },
+  {
+    "id": 70,
+    "name": "Bola Ubi",
+    "image": "Bola Ubi5.jpg",
+    "price": "Rp15.000",
+    "calories": 400
+  },
+  {
+    "id": 71,
+    "name": "Soto Mie",
+    "image": "Soto Mie5.jpg",
+    "price": "Rp25.000",
+    "calories": 600
+  },
+  {
+    "id": 72,
+    "name": "Malatang.jpg",
+    "image": "Malatang5.jpg",
+    "price": "Rp20.000",
+    "calories": 700
+  },
+  {
+    "id": 73,
+    "name": "Sate Taichan",
+    "image": "Sate Taichan5.jpg",
+    "price": "Rp30.000",
+    "calories": 550
+  },
+  {
+    "id": 74,
+    "name": "Batagor",
+    "image": "Batagor5.jpg",
+    "price": "Rp11.000",
+    "calories": 600
+  },
+  {
+    "id": 75,
+    "name": "Jasuke",
+    "image": "Jasuke5.jpg",
+    "price": "Rp8.000",
+    "calories": 350
+  },
+  {
+    "id": 76,
+    "name": "Mie Ayam",
+    "image": "Mie Ayam.jpg",
+    "price": "Rp14.000",
+    "calories": 480
+  },
+  {
+    "id": 77,
+    "name": "Ayam Kalasan",
+    "image": "Ayam Kalasan.jpg",
+    "price": "Rp18.000",
+    "calories": 400
+  },
+  {
+    "id": 78,
+    "name": "Nasi Ayam Hainan",
+    "image": "Nasi Ayam Hainan.jpg",
+    "price": "Rp20.000",
+    "calories": 500
+  },
+  {
+    "id": 79,
+    "name": "Tongseng Kambing",
+    "image": "Tongseng Kambing.jpg",
+    "price": "Rp18.500",
+    "calories": 400
+  },
+  {
+    "id": 80,
+    "name": "Bebek Madura",
+    "image": "Bebek Madura.jpg",
+    "price": "Rp18.000",
+    "calories": 550
+  },
+  {
+    "id": 81,
+    "name": "Ayam Katsu Saus Black Pepper",
+    "image": "Ayam Katsu Saus Black Pepper.jpg",
+    "price": "Rp15.000",
+    "calories": 650
+  },
+  {
+    "id": 82,
+    "name": "Ayam Bakar",
+    "image": "Ayam Bakar.jpg",
+    "price": "Rp18.000",
+    "calories": 500
+  },
+  {
+    "id": 83,
+    "name": "Mendoan",
+    "image": "Mendoan.jpg",
+    "price": "Rp5.000",
+    "calories": 250
+  },
+  {
+    "id": 84,
+    "name": "Gultik",
+    "image": "Gultik",
+    "price": "Rp16.000",
+    "calories": 450
+  },
+  {
+    "id": 85,
+    "name": "Ayam Kalasan + Kulit",
+    "image": "Ayam Kalasan + Kulit.jpg",
+    "price": "Rp22.000",
+    "calories": 570
+  },
+  {
+    "id": 86,
+    "name": "Nasi Gultik",
+    "image": "Nasi Gultik.jpg",
+    "price": "Rp16.000",
+    "calories": 440
+  },
+  {
+    "id": 87,
+    "name": "Sate Ayam",
+    "image": "Sate Ayam.jpg",
+    "price": "Rp17.000",
+    "calories": 550
+  },
+  {
+    "id": 88,
+    "name": "Ayam Katsu Saus Teriyaki",
+    "image": "Ayam Katsu Saus Teriyaki.jpg",
+    "price": "Rp15.000",
+    "calories": 650
+  },
+  {
+    "id": 89,
+    "name": "Nasi Ayam Hainan",
+    "image": "Nasi Ayam Hainan.jpg",
+    "price": "Rp20.000",
+    "calories": 500
+  },
+  {
+    "id": 90,
+    "name": "Sate Ayam",
+    "image": "Sate Ayam.jpg",
+    "price": "Rp17.000",
+    "calories": 550
+  }
+]
