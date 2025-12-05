@@ -14,11 +14,8 @@ export class FoodService {
     const formData = new FormData();
     formData.append('file', imageFile);
 
-    const response = await fetch(`${API_URL}/api/food/analyze`, {
+    const response = await fetch(`${API_URL}/food/analyze`, {
       method: 'POST',
-      headers: {
-        ...AuthService.getAuthHeader(),
-      },
       body: formData,
     });
 

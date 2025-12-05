@@ -3,6 +3,13 @@ DNAI Backend - Food Recognition & Tracking System
 Main application entry point with FastAPI endpoints
 """
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (check parent directory)
+env_path = Path(__file__).parent.parent / '.env'
+load_dotenv(dotenv_path=env_path)
+
 # Fix OpenMP duplicate library issue on macOS
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
@@ -144,10 +151,9 @@ async def analyze_food_image_test(
 
 @app.post("/food/analyze")
 async def analyze_food_image(
-    file: UploadFile = File(...),
-    user_id: str = Depends(get_current_user)
+    file: UploadFile = File(...)
 ):
-    """Analyze food image using CLIP + FAISS"""
+    """Analyze food image using CLIP + FAISS (no auth required)"""
     service = get_clip_service()
     image_data = await file.read()
     food_data = await service.analyze_food_image(image_data)
@@ -190,10 +196,27 @@ async def rebuild_faiss_index(user_id: str = Depends(get_current_user)):
 @app.post("/chat")
 async def chat_with_ai(
     request: ChatRequest,
-    user_id: str = Depends(get_current_user)
+    credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
     """Chat with Gemini AI about food and nutrition"""
-    user_context = await db.get_user_context(user_id)
+    # Optional auth - work with or without login
+    user_id = None
+    if credentials:
+        try:
+            user_id = auth_service.verify_token(credentials.credentials)
+        except:
+            pass  # Continue without auth
+    
+    # Get user context if authenticated
+    if user_id:
+        user_context = await db.get_user_context(user_id)
+    else:
+        user_context = {
+            'daily_calorie_goal': 'Tidak diatur',
+            'consumed_calories': 0,
+            'recent_foods': []
+        }
+    
     service = get_gemini_service()
     response = await service.get_response(request.message, user_context)
     return {"response": response}

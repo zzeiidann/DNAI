@@ -11,7 +11,7 @@ export class ChatService {
    * Gemini AI with LangChain integration for food-related queries
    */
   static async sendMessage(message) {
-    const response = await fetch(`${API_URL}/api/chat`, {
+    const response = await fetch(`${API_URL}/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

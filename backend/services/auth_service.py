@@ -4,7 +4,7 @@ Handles user registration, login, and JWT token management
 """
 import os
 import uuid
-import jwt
+from jose import jwt, JWTError
 import bcrypt
 from datetime import datetime, timedelta
 from fastapi import HTTPException, status
@@ -58,7 +58,7 @@ class AuthService:
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Token has expired"
             )
-        except jwt.JWTError:
+        except JWTError:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Could not validate credentials"

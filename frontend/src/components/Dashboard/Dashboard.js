@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import { LogoSimple } from '../Logo/Logo';
 import authService from '../../services/authService';
 import './Dashboard.css';
@@ -68,6 +69,7 @@ const Dashboard = () => {
   const [chatInput, setChatInput] = useState('');
   const [chatLoading, setChatLoading] = useState(false);
   const [showChatSidebar, setShowChatSidebar] = useState(true);
+  const [animatingMessage, setAnimatingMessage] = useState(null);
   const messagesEndRef = useRef(null);
   
   // Manual Entry
@@ -247,6 +249,7 @@ const Dashboard = () => {
       if (!response.ok) throw new Error('Failed');
       const data = await response.json();
       
+      const newMsgIndex = currentChat.messages.length;
       setConversations(prev => prev.map(conv => {
         if (conv.id === activeConversation) {
           return {
@@ -256,6 +259,10 @@ const Dashboard = () => {
         }
         return conv;
       }));
+      
+      // Trigger animation for new message
+      setAnimatingMessage(`${activeConversation}-${newMsgIndex}`);
+      setTimeout(() => setAnimatingMessage(null), 3000);
     } catch (err) {
       setConversations(prev => prev.map(conv => {
         if (conv.id === activeConversation) {
@@ -588,12 +595,105 @@ const Dashboard = () => {
                 </div>
                 
                 <div className="chat-messages">
-                  {currentChat?.messages.map((msg, idx) => (
-                    <div key={idx} className={`msg ${msg.role}`}>
-                      {msg.role === 'bot' && <div className="msg-avatar">AI</div>}
-                      <div className="msg-text">{msg.content}</div>
-                    </div>
-                  ))}
+                  {currentChat?.messages.map((msg, idx) => {
+                    const isAnimating = animatingMessage === `${activeConversation}-${idx}`;
+                    let itemCounter = 0;
+                    
+                    return (
+                      <div key={idx} className={`msg ${msg.role}`}>
+                        {msg.role === 'bot' && <div className="msg-avatar">AI</div>}
+                        <div className="msg-text">
+                          {msg.role === 'bot' ? (
+                            <ReactMarkdown
+                              components={{
+                                p: ({node, ...props}) => <p style={{margin: '0.5rem 0', lineHeight: '1.6'}} {...props} />,
+                                strong: ({node, children, ...props}) => {
+                                  const text = String(children);
+                                  if (text.includes(':')) {
+                                    return (
+                                      <div style={{
+                                        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%)',
+                                        border: '2px solid rgba(59, 130, 246, 0.4)',
+                                        borderRadius: '12px',
+                                        padding: '1rem',
+                                        marginTop: '1rem',
+                                        marginBottom: '0.5rem'
+                                      }}>
+                                        <strong style={{color: '#60a5fa', fontWeight: '700', fontSize: '1.1rem'}}>{text}</strong>
+                                      </div>
+                                    );
+                                  }
+                                  return <strong style={{color: '#60a5fa', fontWeight: '700'}} {...props}>{children}</strong>;
+                                },
+                                em: ({node, ...props}) => <em style={{color: '#fbbf24', fontStyle: 'normal', fontWeight: '600'}} {...props} />,
+                                ul: ({node, ...props}) => <ul style={{listStyle: 'none', padding: '0', marginTop: '0.5rem'}} {...props} />,
+                                ol: ({node, ...props}) => <ol style={{listStyle: 'none', padding: '0', marginTop: '0.75rem', counterReset: 'food-counter'}} {...props} />,
+                                li: ({node, children, ordered, ...props}) => {
+                                  const text = String(children);
+                                  const currentItem = itemCounter++;
+                                  const shouldAnimate = isAnimating;
+                                  const animationDelay = currentItem * 0.4;
+                                  
+                                  if (text.includes('kal') || text.includes('Rp') || text.includes('Protein')) {
+                                    return (
+                                      <li style={{
+                                        background: 'rgba(51, 65, 85, 0.6)',
+                                        border: '1px solid rgba(100, 116, 139, 0.4)',
+                                        borderRadius: '10px',
+                                        padding: '1rem',
+                                        marginBottom: '0.75rem',
+                                        position: 'relative',
+                                        paddingLeft: ordered ? '3rem' : '1rem',
+                                        counterIncrement: ordered ? 'food-counter' : 'none',
+                                        opacity: shouldAnimate ? 0 : 1,
+                                        transform: shouldAnimate ? 'translateY(10px)' : 'translateY(0)',
+                                        animation: shouldAnimate ? `slideIn 0.5s ease-out ${animationDelay}s forwards` : 'none'
+                                      }} {...props}>
+                                        {ordered && (
+                                          <span style={{
+                                            position: 'absolute',
+                                            left: '1rem',
+                                            top: '1rem',
+                                            background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                                            color: 'white',
+                                            width: '1.75rem',
+                                            height: '1.75rem',
+                                            borderRadius: '50%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontWeight: 'bold',
+                                            fontSize: '0.9rem'
+                                          }}>
+                                            {currentItem + 1}
+                                          </span>
+                                        )}
+                                        {children}
+                                      </li>
+                                    );
+                                  }
+                                  return <li style={{marginBottom: '0.5rem', paddingLeft: '1.5rem', position: 'relative'}} {...props}>
+                                    <span style={{position: 'absolute', left: '0', color: '#60a5fa'}}>•</span>
+                                    {children}
+                                  </li>;
+                                },
+                                h3: ({node, ...props}) => <h3 style={{fontSize: '1.2rem', fontWeight: '700', color: '#60a5fa', marginTop: '1.25rem', marginBottom: '0.75rem', borderBottom: '2px solid rgba(59, 130, 246, 0.3)', paddingBottom: '0.5rem'}} {...props} />,
+                                h4: ({node, ...props}) => <h4 style={{fontSize: '1rem', fontWeight: '600', color: '#fbbf24', marginTop: '1rem', marginBottom: '0.5rem'}} {...props} />,
+                                code: ({node, inline, ...props}) => 
+                                  inline ? 
+                                    <code style={{background: 'rgba(59, 130, 246, 0.2)', color: '#93c5fd', padding: '0.2rem 0.5rem', borderRadius: '6px', fontSize: '0.9em', fontWeight: '600'}} {...props} /> :
+                                    <code style={{display: 'block', background: 'rgba(30, 41, 59, 0.8)', padding: '1rem', borderRadius: '8px', marginTop: '0.5rem', border: '1px solid rgba(71, 85, 105, 0.5)'}} {...props} />
+                              }}
+                            >
+                              {msg.content}
+                            </ReactMarkdown>
+                          ) : (
+                            msg.content
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
                   {chatLoading && (
                     <div className="msg bot">
                       <div className="msg-avatar">AI</div>
